@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Bestie v4.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Lexend', sans-serif; background-color: #fdfbf7; color: #6b6b6b; }
+        textarea::placeholder, input::placeholder { color: #a1a1a1; font-style: normal !important; }
+        .pronoun-btn.active { background-color: #9CAF88 !important; color: white !important; border-color: #9CAF88 !important; }
+        #conversationBox::-webkit-scrollbar { width: 6px; }
+        #conversationBox::-webkit-scrollbar-thumb { background-color: #e5e1d8; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-[#fdfbf7] min-h-screen py-10 px-6 md:px-16">
+    <div class="max-w-7xl mx-auto">
+        <header class="flex flex-col gap-8 mb-10 text-center md:text-left">
+            <div>
+                <h1 class="text-5xl font-bold text-[#9CAF88] tracking-tight lowercase">work bestie 💛</h1>
+                <p class="text-sm mt-2 font-medium text-[#6b6b6b]">v4.0 • sage green ui + interviewer intelligence</p>
+            </div>
+            
+            <div class="flex flex-wrap gap-8 items-center justify-center md:justify-start bg-white p-6 rounded-3xl shadow-sm border border-[#e5e1d8]">
+                <div class="flex flex-col gap-1">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#9CAF88]">student name</span>
+                    <input type="text" id="studentName" class="bg-transparent border-b border-[#e5e1d8] outline-none focus:border-[#9CAF88] text-sm py-1" placeholder="Enter name...">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#9CAF88]">pronouns</span>
+                    <div class="flex gap-2">
+                        <button onclick="setPronoun('he')" id="btn-he" class="pronoun-btn px-3 py-1 rounded-lg border border-[#e5e1d8] text-[10px] font-bold">he/him</button>
+                        <button onclick="setPronoun('she')" id="btn-she" class="pronoun-btn px-3 py-1 rounded-lg border border-[#e5e1d8] text-[10px] font-bold active">she/her</button>
+                        <button onclick="setPronoun('they')" id="btn-they" class="pronoun-btn px-3 py-1 rounded-lg border border-[#e5e1d8] text-[10px] font-bold">they/them</button>
+                    </div>
+                    <input type="hidden" id="pronounSelect" value="she">
+                </div>
+                <div class="flex items-center gap-2 ml-auto">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#9CAF88]">catholic mode</span>
+                    <input type="checkbox" id="catholicMode" class="w-4 h-4 accent-[#9CAF88]">
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div class="space-y-6">
+                <div class="flex flex-col gap-2">
+                    <span class="text-[14px] font-bold uppercase tracking-widest text-[#9CAF88] px-1">1. brain dump</span>
+                    <textarea id="noteInput" class="w-full h-64 p-6 bg-white border border-[#e5e1d8] rounded-3xl focus:border-[#9CAF88] outline-none transition-all shadow-sm text-sm text-[#6b6b6b]" placeholder="Paste your observations here... (e.g., 'Binder is messy, works well with partners, always on task')"></textarea>
+                </div>
+                <button onclick="startInterview()" class="w-full py-4 bg-[#9CAF88] text-white rounded-2xl font-bold text-lg hover:bg-[#8ba078] transition-all shadow-md lowercase">begin analysis 🧠</button>
+            </div>
+
+            <div class="space-y-4">
+                <span class="text-[14px] font-bold uppercase tracking-widest text-[#9CAF88] px-1">2. executive assistant</span>
+                <div id="conversationBox" class="bg-white border border-[#e5e1d8] rounded-[2rem] p-8 h-96 overflow-y-auto space-y-4 shadow-sm text-[#6b6b6b]">
+                    <div class="text-center py-12 opacity-70 italic">
+                        👋 Hey Bestie! Dump your notes on the left and I'll help you work through each learning skill together.
+                    </div>
+                </div>
+                
+                <div id="answerSection" class="hidden space-y-4">
+                    <textarea id="answerInput" class="w-full h-24 p-6 bg-white border border-[#e5e1d8] rounded-2xl focus:border-[#9CAF88] outline-none text-sm text-[#6b6b6b]" placeholder="Type answer and hit Enter..."></textarea>
+                    <div class="flex gap-3">
+                        <button onclick="submitAnswer()" class="flex-1 py-4 bg-[#9CAF88] text-white rounded-xl font-bold hover:bg-[#8ba078] transition-all lowercase">submit (enter)</button>
+                        <button onclick="skipSkill()" class="px-6 py-4 bg-[#f0eee9] text-[#6b6b6b] rounded-xl font-bold hover:bg-[#e5e1d8] transition-all text-xs lowercase">skip skill</button>
+                    </div>
+                </div>
+
+                <button id="generateBtn" onclick="generateComment()" class="hidden w-full py-5 bg-[#9CAF88] text-white rounded-2xl font-bold text-xl shadow-lg hover:bg-[#8ba078] lowercase">generate final comment ✨</button>
+            </div>
+        </div>
+
+        <div id="outputBox" class="hidden mt-12 p-8 bg-[#9CAF88] text-[#fdfbf7] rounded-3xl shadow-2xl">
+            <h3 class="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50 text-[#fdfbf7]">professional draft</h3>
+            <p id="commentResult" class="text-xl leading-relaxed mb-6 font-medium"></p>
+            <div class="flex gap-3">
+                <button onclick="copyText()" class="bg-[#fdfbf7] text-[#9CAF88] px-6 py-3 rounded-xl font-bold hover:bg-white transition-all lowercase">
+                    <span id="copyBtnText">copy to clipboard</span>
+                </button>
+                <button onclick="startOver()" class="px-6 py-3 bg-[#e5e1d8] text-[#9CAF88] rounded-xl font-bold hover:bg-[#d4cfc3] transition-all lowercase">start over</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+// --- DATA ENGINE ---
+const skillsData = {
+  responsibility: {
+    name: "Responsibility",
+    keywords: ["rules", "behavior", "behaviour", "homework", "conduct", "responsible"],
+    questions: ["How do they handle classroom rules and expectations?", "Do they take ownership of their actions?"],
+    strength: "fulfills commitments and takes responsibility for [POSS] behaviour.",
+    growth: "follow classroom expectations and fulfill commitments.",
+    negativeFramed: false
+  },
+  organization: {
+    name: "Organization",
+    keywords: ["desk", "binder", "locker", "materials", "time", "organized", "tidy", "messy"],
+    questions: ["How is their desk or workspace? Tidy or chaotic?", "Do they manage their time effectively to meet deadlines?"],
+    strength: "manages time and materials to establish priorities and meet goals.",
+    growth: "use organizational tools to manage materials and time.",
+    negativeFramed: false
+  },
+  independent: {
+    name: "Independent Work",
+    keywords: ["focus", "reminders", "on task", "alone", "independently"],
+    questions: ["Do they stay focused on their work with minimal reminders?", "Can they follow instructions without constant teacher support?"],
+    strength: "uses class time productively to complete tasks with minimal supervision.",
+    growth: "stay focused on tasks with fewer teacher reminders.",
+    negativeFramed: false
+  },
+  collaboration: {
+    name: "Collaboration",
+    keywords: ["group", "partner", "team", "peer", "share", "listening"],
+    questions: ["How do they behave in group settings?", "Do they listen respectfully to peers' ideas?"],
+    strength: "builds healthy relationships and works effectively in team settings.",
+    growth: "work cooperatively with others and listen to peer input.",
+    negativeFramed: false
+  },
+  initiative: {
+    name: "Initiative",
+    keywords: ["curious", "try", "new", "risk", "starting", "attitude"],
+    questions: ["Do they try new things with a positive attitude?", "Do they seek out opportunities for learning?"],
+    strength: "demonstrates curiosity and a willingness to take risks in learning.",
+    growth: "approach new learning tasks with a positive attitude.",
+    negativeFramed: false
+  },
+  self_reg: {
+    name: "Self-Regulation",
+    keywords: ["calm", "goals", "emotions", "stuck", "meltdown", "frustration"],
+    questions: ["How do they handle frustration or academic challenges?", "Can they set goals and monitor their own progress?"],
+    strength: "sets goals and monitors progress while managing emotions effectively.",
+    growth: "persevere through challenges and manage emotions in the classroom.",
+    negativeFramed: false
+  }
+};
+
+const dictionary = {
+  E: { logic: ["always", "consistently", "proactively", "leadership"], output: ["consistently", "proactively", "independently"] },
+  G: { logic: ["usually", "regularly", "frequently", "confidently"], output: ["regularly", "reliably", "effectively"] },
+  S: { logic: ["sometimes", "occasionally", "developing", "reminders"], output: ["is learning to", "is beginning to", "with some support"] },
+  N: { logic: ["rarely", "struggles", "meltdown", "hard", "difficulty", "messy", "chaos"], output: ["requires significant support to", "needs frequent guidance to"] }
+};
+
+const catholicPhrases = [
+  "[PRON_CAP] [BE] a 'learner for life' who demonstrates that [PRON] 'has a voice' by taking ownership of [POSS] actions.",
+  "Reflecting the CGE 'I Care,' [PRON_CAP] demonstrate the values of a collaborative contributor who values peers.",
+  "As an effective communicator, [PRON] [LISTEN] respectfully and finds meaning in service to others."
+];
+
+// --- APP STATE ---
+let conversationState = {
+  currentSkill: null,
+  currentQuestionIndex: 0,
+  collectedData: {},
+  initialDump: "",
+  skillsToAsk: []
+};
+
+// --- CORE FUNCTIONS ---
+function setPronoun(gender) {
+  document.getElementById('pronounSelect').value = gender;
+  document.querySelectorAll('.pronoun-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('btn-' + gender).classList.add('active');
+}
+
+function startInterview() {
+  const dump = document.getElementById('noteInput').value.trim();
+  if (!dump) return alert("Please dump some notes first, Bestie!");
+
+  conversationState.initialDump = dump;
+  conversationState.collectedData = {};
+  
+  // Identify which skills were NOT mentioned in the dump
+  conversationState.skillsToAsk = Object.keys(skillsData).filter(skillKey => {
+    const mentioned = skillsData[skillKey].keywords.some(k => dump.toLowerCase().includes(k));
+    if (mentioned) conversationState.collectedData[skillKey] = dump;
+    return !mentioned;
+  });
+
+  document.getElementById('conversationBox').innerHTML = "";
+  document.getElementById('answerSection').classList.remove('hidden');
+  nextStep();
+}
+
+function nextStep() {
+  if (conversationState.skillsToAsk.length === 0) {
+    finishInterview();
+    return;
+  }
+  
+  conversationState.currentSkill = conversationState.skillsToAsk[0];
+  askQuestion();
+}
+
+function askQuestion() {
+  const skill = skillsData[conversationState.currentSkill];
+  const box = document.getElementById('conversationBox');
+  
+  const msg = document.createElement('div');
+  msg.className = "bg-[#fdfbf7] p-6 rounded-2xl border border-[#e5e1d8] text-sm shadow-sm";
+  msg.innerHTML = `<span class="font-bold text-[#9CAF88] uppercase text-[10px] tracking-widest">${skill.name}</span>
+                   <p class="mt-2 text-lg">${skill.questions[0]}</p>`;
+  box.appendChild(msg);
+  box.scrollTop = box.scrollHeight;
+}
+
+function submitAnswer() {
+  const input = document.getElementById('answerInput');
+  const val = input.value.trim();
+  if (!val) return;
+
+  // Add bubble to UI
+  const box = document.getElementById('conversationBox');
+  const bubble = document.createElement('div');
+  bubble.className = "bg-[#9CAF88] text-white p-4 rounded-2xl text-sm ml-auto max-w-[80%] shadow-sm";
+  bubble.innerText = val;
+  box.appendChild(bubble);
+
+  // Save data and move on
+  conversationState.collectedData[conversationState.currentSkill] = val;
+  conversationState.skillsToAsk.shift();
+  input.value = "";
+  nextStep();
+}
+
+function skipSkill() {
+  conversationState.skillsToAsk.shift();
+  nextStep();
+}
+
+function finishInterview() {
+  document.getElementById('answerSection').classList.add('hidden');
+  document.getElementById('generateBtn').classList.remove('hidden');
+  const box = document.getElementById('conversationBox');
+  box.innerHTML += `<div class="text-center py-8 font-bold text-[#9CAF88]">✨ Analysis Complete! Click generate below.</div>`;
+}
+
+function getGrade(text) {
+  let scores = { E:0, G:0, S:0, N:0 };
+  for (let grade in dictionary) {
+    dictionary[grade].logic.forEach(w => {
+      if (text.toLowerCase().includes(w)) scores[grade]++;
+    });
+  }
+  return Object.keys(scores).reduce((a, b) => scores[a] >= scores[b] ? a : b);
+}
+
+function generateComment() {
+  const name = document.getElementById('studentName').value || "The student";
+  const pronoun = document.getElementById('pronounSelect').value;
+  const isCatholic = document.getElementById('catholicMode').checked;
+  
+  const cp = {
+    he: { PRON: "he", POSS: "his", PRON_CAP: "He", BE: "is", LISTEN: "listens" },
+    she: { PRON: "she", POSS: "her", PRON_CAP: "She", BE: "is", LISTEN: "listens" },
+    they: { PRON: "they", POSS: "their", PRON_CAP: "They", BE: "are", LISTEN: "listen" }
+  }[pronoun];
+
+  let segments = [];
+  for (let skillKey in conversationState.collectedData) {
+    const data = conversationState.collectedData[skillKey];
+    const grade = getGrade(data);
+    const qual = dictionary[grade].output[Math.floor(Math.random() * dictionary[grade].output.length)];
+    
+    let phrase = (grade === 'S' || grade === 'N') ? skillsData[skillKey].growth : skillsData[skillKey].strength;
+    phrase = phrase.replace(/\[POSS\]/g, cp.POSS);
+    segments.push(`${qual} ${phrase}`);
+  }
+
+  let finalOutput = `${name} ${segments.join(". " + cp.PRON_CAP + " ")}. `;
+  
+  if (isCatholic) {
+    let cath = catholicPhrases[Math.floor(Math.random() * catholicPhrases.length)];
+    finalOutput += cath.replace(/\[PRON\]/g, cp.PRON).replace(/\[PRON_CAP\]/g, cp.PRON_CAP).replace(/\[BE\]/g, cp.BE).replace(/\[LISTEN\]/g, cp.LISTEN).replace(/\[POSS\]/g, cp.POSS);
+  }
+
+  // Final Grammar Fix for 'They'
+  if (pronoun === 'they') {
+    finalOutput = finalOutput.replace(/\bdemonstrates\b/g, "demonstrate").replace(/\bshows\b/g, "show").replace(/\bsets\b/g, "set").replace(/\bmonitors\b/g, "monitor").replace(/\bworks\b/g, "work").replace(/\bis encouraged\b/g, "are encouraged").replace(/\bresponds\b/g, "respond").replace(/\bfollows\b/g, "follow").replace(/\buses\b/g, "use").replace(/\bseeks\b/g, "seek");
+  }
+
+  document.getElementById('commentResult').innerText = finalOutput.replace(/\s+/g, ' ').trim();
+  document.getElementById('outputBox').classList.remove('hidden');
+  document.getElementById('generateBtn').classList.add('hidden');
+}
+
+function copyText() {
+  navigator.clipboard.writeText(document.getElementById('commentResult').innerText);
+  document.getElementById('copyBtnText').innerText = "✓ Copied!";
+  setTimeout(() => { document.getElementById('copyBtnText').innerText = "Copy to Clipboard"; }, 3000);
+}
+
+function startOver() {
+  location.reload();
+}
+
+document.getElementById('answerInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    submitAnswer();
+  }
+});
+
+window.onload = () => setPronoun('she');
+</script>
+</body>
+</html>
