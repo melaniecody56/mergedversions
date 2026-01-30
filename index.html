@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Bestie v4.0</title>
+    <title>Work Bestie v3.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,29 +16,39 @@
 </head>
 <body class="bg-[#fdfbf7] min-h-screen py-10 px-6 md:px-16">
     <div class="max-w-7xl mx-auto">
-        <header class="flex flex-col gap-8 mb-10 text-center md:text-left">
+        <header class="flex flex-col gap-8 mb-10">
             <div>
-                <h1 class="text-5xl font-bold text-[#9CAF88] tracking-tight lowercase">work bestie 💛</h1>
-                <p class="text-sm mt-2 font-medium text-[#6b6b6b]">v4.0 • sage green ui + interviewer intelligence</p>
+                <h1 class="text-5xl font-bold text-[#9CAF88] tracking-tight lowercase">work bestie</h1>
+                <p class="text-sm mt-2 font-medium text-[#6b6b6b]">v3.0 • ontario growing success companion</p>
             </div>
             
-            <div class="flex flex-wrap gap-8 items-center justify-center md:justify-start bg-white p-6 rounded-3xl shadow-sm border border-[#e5e1d8]">
-                <div class="flex flex-col gap-1">
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#9CAF88]">student name</span>
-                    <input type="text" id="studentName" class="bg-transparent border-b border-[#e5e1d8] outline-none focus:border-[#9CAF88] text-sm py-1" placeholder="Enter name...">
-                </div>
-                <div class="flex flex-col gap-1">
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#9CAF88]">pronouns</span>
-                    <div class="flex gap-2">
-                        <button onclick="setPronoun('he')" id="btn-he" class="pronoun-btn px-3 py-1 rounded-lg border border-[#e5e1d8] text-[10px] font-bold">he/him</button>
-                        <button onclick="setPronoun('she')" id="btn-she" class="pronoun-btn px-3 py-1 rounded-lg border border-[#e5e1d8] text-[10px] font-bold active">she/her</button>
-                        <button onclick="setPronoun('they')" id="btn-they" class="pronoun-btn px-3 py-1 rounded-lg border border-[#e5e1d8] text-[10px] font-bold">they/them</button>
+            <div class="flex flex-wrap gap-12 items-center">
+                <div class="flex flex-col gap-2">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#9CAF88]">grade</span>
+                    <div class="bg-white px-4 py-2 rounded-xl shadow-sm border border-[#e5e1d8]">
+                        <select id="gradeSelect" class="text-sm font-bold outline-none bg-transparent cursor-pointer text-[#6b6b6b]">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
                     </div>
-                    <input type="hidden" id="pronounSelect" value="she">
                 </div>
-                <div class="flex items-center gap-2 ml-auto">
+
+                <div class="flex flex-col gap-2">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-[#9CAF88]">catholic mode</span>
-                    <input type="checkbox" id="catholicMode" class="w-4 h-4 accent-[#9CAF88]">
+                    <div class="bg-white px-4 py-2 rounded-xl shadow-sm border border-[#e5e1d8] flex items-center">
+                        <input type="checkbox" id="catholicToggle" class="w-5 h-5 accent-[#9CAF88] cursor-pointer">
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#9CAF88]">character limit</span>
+                    <div class="bg-white px-4 py-2 rounded-xl shadow-sm border border-[#e5e1d8]">
+                        <input type="number" id="customCharLimit" class="w-32 text-sm font-bold outline-none bg-transparent text-[#6b6b6b]" placeholder="eg. 1800">
+                    </div>
                 </div>
             </div>
         </header>
@@ -46,29 +56,29 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div class="space-y-6">
                 <div class="flex flex-col gap-2">
-                    <span class="text-[14px] font-bold uppercase tracking-widest text-[#9CAF88] px-1">1. brain dump</span>
-                    <textarea id="noteInput" class="w-full h-64 p-6 bg-white border border-[#e5e1d8] rounded-3xl focus:border-[#9CAF88] outline-none transition-all shadow-sm text-sm text-[#6b6b6b]" placeholder="Paste your observations here... (e.g., 'Binder is messy, works well with partners, always on task')"></textarea>
+                    <span class="text-[14px] font-bold uppercase tracking-widest text-[#9CAF88] px-1">brain dump</span>
+                    <textarea id="noteInput" class="w-full h-48 p-6 bg-white border border-[#e5e1d8] rounded-3xl focus:border-[#9CAF88] outline-none transition-all shadow-sm text-sm text-[#a1a1a1]" placeholder="bestie, just dump your thoughts here..."></textarea>
                 </div>
-                <button onclick="startInterview()" class="w-full py-4 bg-[#9CAF88] text-white rounded-2xl font-bold text-lg hover:bg-[#8ba078] transition-all shadow-md lowercase">begin analysis 🧠</button>
+                <button onclick="startInterview()" class="w-full py-4 bg-[#9CAF88] text-white rounded-2xl font-bold text-lg hover:bg-[#8ba078] transition-all shadow-md lowercase">start interview</button>
             </div>
 
             <div class="space-y-4">
-                <span class="text-[14px] font-bold uppercase tracking-widest text-[#9CAF88] px-1">2. executive assistant</span>
+                <span class="text-[14px] font-bold uppercase tracking-widest text-[#9CAF88] px-1">the interviewer</span>
                 <div id="conversationBox" class="bg-white border border-[#e5e1d8] rounded-[2rem] p-8 h-96 overflow-y-auto space-y-4 shadow-sm text-[#6b6b6b]">
-                    <div class="text-center py-12 opacity-70 italic">
-                        👋 Hey Bestie! Dump your notes on the left and I'll help you work through each learning skill together.
+                    <div class="text-center py-12 opacity-70">
+                        <p class="text-2xl mb-2"></p>
+                        <p class="font-medium text-sm text-[#a1a1a1]">Hey Bestie! Dump your notes on the left and I'll help you work through each learning skill together.</p>
                     </div>
                 </div>
                 
-                <div id="answerSection" class="hidden space-y-4">
-                    <textarea id="answerInput" class="w-full h-24 p-6 bg-white border border-[#e5e1d8] rounded-2xl focus:border-[#9CAF88] outline-none text-sm text-[#6b6b6b]" placeholder="Type answer and hit Enter..."></textarea>
+                <div id="answerSection" class="hidden space-y-4 mt-4">
+                    <textarea id="answerInput" class="w-full h-32 p-6 bg-white border border-[#e5e1d8] rounded-2xl focus:border-[#9CAF88] outline-none text-sm text-[#6b6b6b]" placeholder="Type and hit Enter..."></textarea>
                     <div class="flex gap-3">
                         <button onclick="submitAnswer()" class="flex-1 py-4 bg-[#9CAF88] text-white rounded-xl font-bold hover:bg-[#8ba078] transition-all lowercase">submit (enter)</button>
-                        <button onclick="skipSkill()" class="px-6 py-4 bg-[#f0eee9] text-[#6b6b6b] rounded-xl font-bold hover:bg-[#e5e1d8] transition-all text-xs lowercase">skip skill</button>
+                        <button onclick="skipQuestion()" class="px-6 py-4 bg-[#f0eee9] text-[#6b6b6b] rounded-xl font-bold hover:bg-[#e5e1d8] transition-all text-xs lowercase">skip for now</button>
                     </div>
                 </div>
-
-                <button id="generateBtn" onclick="generateComment()" class="hidden w-full py-5 bg-[#9CAF88] text-white rounded-2xl font-bold text-xl shadow-lg hover:bg-[#8ba078] lowercase">generate final comment ✨</button>
+                <button id="generateBtn" onclick="generateComment()" class="hidden w-full py-5 bg-[#9CAF88] text-white rounded-2xl font-bold text-xl shadow-lg hover:bg-[#8ba078] lowercase">generate final comment</button>
             </div>
         </div>
 
@@ -85,63 +95,85 @@
     </div>
 
 <script>
-// --- DATA ENGINE ---
 const skillsData = {
-  responsibility: {
-    name: "Responsibility",
-    keywords: ["rules", "behavior", "behaviour", "homework", "conduct", "responsible"],
-    questions: ["How do they handle classroom rules and expectations?", "Do they take ownership of their actions?"],
-    strength: "fulfills commitments and takes responsibility for [POSS] behaviour.",
-    growth: "follow classroom expectations and fulfill commitments.",
-    negativeFramed: false
-  },
   organization: {
     name: "Organization",
-    keywords: ["desk", "binder", "locker", "materials", "time", "organized", "tidy", "messy"],
-    questions: ["How is their desk or workspace? Tidy or chaotic?", "Do they manage their time effectively to meet deadlines?"],
-    strength: "manages time and materials to establish priorities and meet goals.",
-    growth: "use organizational tools to manage materials and time.",
-    negativeFramed: false
-  },
-  independent: {
-    name: "Independent Work",
-    keywords: ["focus", "reminders", "on task", "alone", "independently"],
-    questions: ["Do they stay focused on their work with minimal reminders?", "Can they follow instructions without constant teacher support?"],
-    strength: "uses class time productively to complete tasks with minimal supervision.",
-    growth: "stay focused on tasks with fewer teacher reminders.",
-    negativeFramed: false
+    strength: "consistently responds to class schedules and follows a plan for completing work and gathering materials.",
+    growth: "use a daily planner and checklists to manage classroom materials more effectively.",
+    keywords: ["desk", "binder", "material", "tidy", "mess", "workspace", "schedule", "plan", "checklist", "floor", "lost", "backpack", "locker", "supplies", "destroyed", "ripped", "rip", "destroying"],
+    questions: [
+      { q: "How is their desk? Tidy or chaotic?", negativeFramed: false },
+      { q: "Do they lose materials often?", negativeFramed: true },
+      { q: "Can they find their supplies when needed?", negativeFramed: false },
+      { q: "Do they use any kind of planner or system?", negativeFramed: false },
+      { q: "Is their backpack/binder organized or a mess?", negativeFramed: false }
+    ]
   },
   collaboration: {
     name: "Collaboration",
-    keywords: ["group", "partner", "team", "peer", "share", "listening"],
-    questions: ["How do they behave in group settings?", "Do they listen respectfully to peers' ideas?"],
-    strength: "builds healthy relationships and works effectively in team settings.",
-    growth: "work cooperatively with others and listen to peer input.",
-    negativeFramed: false
+    strength: "works effectively in group settings, respecting diverse perspectives and helping the team in a positive way.",
+    growth: "develop [POSS] ability to listen respectfully to peer ideas and resolve conflicts in a constructive manner.",
+    keywords: ["group", "peer", "lead", "listen", "friend", "team", "diverse", "perspective", "share", "lying", "aggressive", "fighting", "shoving", "mean", "argument", "kicking", "hitting", "throwing", "screaming"],
+    questions: [
+      { q: "How are they with peers in group work?", negativeFramed: false },
+      { q: "Do they share materials and ideas?", negativeFramed: false },
+      { q: "Any conflicts or arguments during collaboration?", negativeFramed: true },
+      { q: "Do they listen when others are talking?", negativeFramed: false },
+      { q: "Can they work as part of a team?", negativeFramed: false }
+    ]
+  },
+  independent: {
+    name: "Independent Work",
+    strength: "uses class time to [POSS] best advantage and follows instructions without reminders to monitor own progress.",
+    growth: "focus on completing tasks with minimal teacher supervision and using class time more effectively.",
+    keywords: ["alone", "focus", "distract", "independent", "reminder", "supervision", "advantage", "zoning", "wandering", "fidgeting", "reading", "dyslexia", "writing"],
+    questions: [
+      { q: "Can they work independently without constant reminders?", negativeFramed: false },
+      { q: "Do they get distracted easily when working alone?", negativeFramed: true },
+      { q: "Do they use class time well?", negativeFramed: false },
+      { q: "Do they need you standing over them to stay on task?", negativeFramed: true },
+      { q: "Can they follow instructions on their own?", negativeFramed: false }
+    ]
+  },
+  responsibility: {
+    name: "Responsibility",
+    strength: "demonstrates accountability by fulfilling commitments and taking ownership of [POSS] actions and work.",
+    growth: "take more responsibility for meeting deadlines and following [POSS] classroom commitments.",
+    keywords: ["time", "deadlin", "instruct", "follow", "commitment", "ownership", "accountable", "late", "forgot", "homework", "behavior", "sorry"],
+    questions: [
+      { q: "Do they meet deadlines?", negativeFramed: false },
+      { q: "Do they take ownership of their mistakes?", negativeFramed: false },
+      { q: "Are they accountable for their work and behavior?", negativeFramed: false },
+      { q: "Do they follow through on commitments?", negativeFramed: false },
+      { q: "How do they handle it when they mess up?", negativeFramed: false }
+    ]
   },
   initiative: {
     name: "Initiative",
-    keywords: ["curious", "try", "new", "risk", "starting", "attitude"],
-    questions: ["Do they try new things with a positive attitude?", "Do they seek out opportunities for learning?"],
-    strength: "demonstrates curiosity and a willingness to take risks in learning.",
-    growth: "approach new learning tasks with a positive attitude.",
-    negativeFramed: false
+    strength: "independently seeks out new opportunities and demonstrates curiosity by asking questions to advocate for [POSS] learning.",
+    growth: "take more initiative to start tasks independently and seek clarification when faced with new challenges.",
+    keywords: ["start", "lead", "ask", "initiative", "curiosity", "risk", "advocate", "wait", "staring", "blank"],
+    questions: [
+      { q: "Do they start work on their own or wait to be told?", negativeFramed: false },
+      { q: "Do they ask questions when stuck?", negativeFramed: false },
+      { q: "Do they seek out challenges or new learning?", negativeFramed: false },
+      { q: "Are they curious and engaged?", negativeFramed: false },
+      { q: "Do they advocate for themselves?", negativeFramed: false }
+    ]
   },
-  self_reg: {
+  selfRegulation: {
     name: "Self-Regulation",
-    keywords: ["calm", "goals", "emotions", "stuck", "meltdown", "frustration"],
-    questions: ["How do they handle frustration or academic challenges?", "Can they set goals and monitor their own progress?"],
-    strength: "sets goals and monitors progress while managing emotions effectively.",
-    growth: "persevere through challenges and manage emotions in the classroom.",
-    negativeFramed: false
+    strength: "sets personal learning goals and perseveres when challenged, monitoring progress with a positive attitude.",
+    growth: "develop strategies to persevere through challenging tasks and manage emotions appropriately when faced with frustration.",
+    keywords: ["challeng", "behave", "emot", "calm", "persevere", "goal", "monitor", "mad", "upset", "break", "crying", "hyper", "outburst", "meltdown", "furniture", "walls"],
+    questions: [
+      { q: "How do they handle big feelings or meltdowns?", negativeFramed: false },
+      { q: "Do they persevere when something is hard?", negativeFramed: false },
+      { q: "Can they calm themselves down?", negativeFramed: false },
+      { q: "Do they set goals for their learning?", negativeFramed: false },
+      { q: "What happens when they get frustrated?", negativeFramed: false }
+    ]
   }
-};
-
-const dictionary = {
-  E: { logic: ["always", "consistently", "proactively", "leadership"], output: ["consistently", "proactively", "independently"] },
-  G: { logic: ["usually", "regularly", "frequently", "confidently"], output: ["regularly", "reliably", "effectively"] },
-  S: { logic: ["sometimes", "occasionally", "developing", "reminders"], output: ["is learning to", "is beginning to", "with some support"] },
-  N: { logic: ["rarely", "struggles", "meltdown", "hard", "difficulty", "messy", "chaos"], output: ["requires significant support to", "needs frequent guidance to"] }
 };
 
 const catholicPhrases = [
@@ -150,7 +182,6 @@ const catholicPhrases = [
   "As an effective communicator, [PRON] [LISTEN] respectfully and finds meaning in service to others."
 ];
 
-// --- APP STATE ---
 let conversationState = {
   currentSkill: null,
   currentQuestionIndex: 0,
@@ -159,7 +190,36 @@ let conversationState = {
   skillsToAsk: []
 };
 
-// --- CORE FUNCTIONS ---
+function addMessage(text, isUser = false) {
+  const conv = document.getElementById('conversationBox');
+  const msg = document.createElement('div');
+  msg.className = isUser 
+    ? 'bg-[#9CAF88] text-white p-4 rounded-xl text-sm self-end ml-auto max-w-[80%]' 
+    : 'bg-[#fdfbf7] p-6 rounded-2xl border border-[#e5e1d8] text-sm';
+  msg.innerHTML = `<p class="${isUser ? '' : 'text-[#6b6b6b]'}">${text}</p>`;
+  conv.appendChild(msg);
+  conv.scrollTop = conv.scrollHeight;
+}
+
+function isNegativeResponse(text) {
+  const negativePatterns = [
+    /\bno\b/i, /\bnope\b/i, /\bidk\b/i, /\bdon'?t know\b/i, /\bi forget\b/i,
+    /\bdon'?t remember\b/i, /\bcan'?t remember\b/i, /\bnot sure\b/i, /\bunsure\b/i,
+    /\bdon'?t recall\b/i, /\bcan'?t think\b/i, /\bdrawing a blank\b/i, /\bno idea\b/i,
+    /\bno clue\b/i, /\bdon'?t think so\b/i, /\bcan'?t say\b/i,
+    /\bnot really\b/i, /\bcan'?t\b/i, /\bnever\b/i, /\bawful\b/i, /\bbad\b/i,
+    /\bterrible\b/i, /\bstrugg/i, /\bhard\b/i, /\bdifficult/i, /\bfail/i,
+    /\bmess\b/i, /\bchaos\b/i, /\bchaotic\b/i, /\bdestroy/i, /\blost\b/i,
+    /\bmean\b/i, /\bfight/i, /\bhit/i, /\bkick/i, /\bscream/i, /\bthrow/i,
+    /\bmad\b/i, /\bupset\b/i, /\bangry/i, /\bcry/i, /\bmeltdown/i,
+    /\boutburst/i, /\bhyper/i, /\bdistract/i, /\bwander/i, /\bzone/i,
+    /\blate\b/i, /\bforget\b/i, /\bforgot\b/i, /\balways need/i,
+    /\bconstant/i, /\bremind/i, /\bwait/i, /\bstare/i, /\bblank\b/i,
+    /\brefus/i, /\bwon'?t\b/i
+  ];
+  return negativePatterns.some(pattern => pattern.test(text));
+}
+
 function setPronoun(gender) {
   document.getElementById('pronounSelect').value = gender;
   document.querySelectorAll('.pronoun-btn').forEach(btn => btn.classList.remove('active'));
@@ -168,43 +228,68 @@ function setPronoun(gender) {
 
 function startInterview() {
   const dump = document.getElementById('noteInput').value.trim();
-  if (!dump) return alert("Please dump some notes first, Bestie!");
-
-  conversationState.initialDump = dump;
-  conversationState.collectedData = {};
-  
-  // Identify which skills were NOT mentioned in the dump
-  conversationState.skillsToAsk = Object.keys(skillsData).filter(skillKey => {
-    const mentioned = skillsData[skillKey].keywords.some(k => dump.toLowerCase().includes(k));
-    if (mentioned) conversationState.collectedData[skillKey] = dump;
-    return !mentioned;
-  });
-
-  document.getElementById('conversationBox').innerHTML = "";
-  document.getElementById('answerSection').classList.remove('hidden');
-  nextStep();
-}
-
-function nextStep() {
-  if (conversationState.skillsToAsk.length === 0) {
-    finishInterview();
+  if (dump.length < 5) {
+    alert('Please add some notes first, bestie! 💛');
     return;
   }
+
+  conversationState.initialDump = dump.toLowerCase();
+  conversationState.collectedData = {};
+  document.getElementById('conversationBox').innerHTML = '';
   
-  conversationState.currentSkill = conversationState.skillsToAsk[0];
-  askQuestion();
+  const covered = [];
+  const missing = [];
+
+  Object.keys(skillsData).forEach(skillKey => {
+    const skill = skillsData[skillKey];
+    const hasKeyword = skill.keywords.some(kw => conversationState.initialDump.includes(kw));
+
+    if (hasKeyword) {
+      const isNegative = isNegativeResponse(conversationState.initialDump);
+      conversationState.collectedData[skillKey] = {
+        hasInfo: true,
+        isPositive: !isNegative,
+        rawText: dump
+      };
+      covered.push(skill.name);
+    } else {
+      missing.push(skillKey);
+    }
+  });
+
+  if (covered.length > 0) {
+    addMessage(`Great start! I can see you've got notes on: ${covered.join(', ')}. `);
+  }
+
+  conversationState.skillsToAsk = missing;
+
+  if (missing.length === 0) {
+    addMessage("Wow! You've covered everything! You're ready to generate your comment.");
+    document.getElementById('generateBtn').classList.remove('hidden');
+  } else {
+    askNextQuestion();
+  }
 }
 
-function askQuestion() {
-  const skill = skillsData[conversationState.currentSkill];
-  const box = document.getElementById('conversationBox');
-  
-  const msg = document.createElement('div');
-  msg.className = "bg-[#fdfbf7] p-6 rounded-2xl border border-[#e5e1d8] text-sm shadow-sm";
-  msg.innerHTML = `<span class="font-bold text-[#9CAF88] uppercase text-[10px] tracking-widest">${skill.name}</span>
-                   <p class="mt-2 text-lg">${skill.questions[0]}</p>`;
-  box.appendChild(msg);
-  box.scrollTop = box.scrollHeight;
+function askNextQuestion() {
+  if (conversationState.skillsToAsk.length === 0) {
+    addMessage("Perfect! We've covered all the learning skills. You're ready to generate your professional comment!");
+    document.getElementById('answerSection').classList.add('hidden');
+    document.getElementById('generateBtn').classList.remove('hidden');
+    return;
+  }
+
+  const skillKey = conversationState.skillsToAsk[0];
+  conversationState.currentSkill = skillKey;
+  conversationState.currentQuestionIndex = 0;
+
+  const skill = skillsData[skillKey];
+  const questionObj = skill.questions[0];
+
+  addMessage(`Let's talk about <b>${skill.name}</b>. ${questionObj.q}`);
+  document.getElementById('answerSection').classList.remove('hidden');
+  document.getElementById('answerInput').value = '';
+  document.getElementById('answerInput').focus();
 }
 
 function submitAnswer() {
@@ -212,85 +297,26 @@ function submitAnswer() {
   const val = input.value.trim();
   if (!val) return;
 
-  // Add bubble to UI
-  const box = document.getElementById('conversationBox');
-  const bubble = document.createElement('div');
-  bubble.className = "bg-[#9CAF88] text-white p-4 rounded-2xl text-sm ml-auto max-w-[80%] shadow-sm";
-  bubble.innerText = val;
-  box.appendChild(bubble);
+  addMessage(val, true);
 
-  // Save data and move on
-  conversationState.collectedData[conversationState.currentSkill] = val;
+  const isNegative = isNegativeResponse(val);
+  conversationState.collectedData[conversationState.currentSkill] = {
+    hasInfo: true,
+    isPositive: !isNegative,
+    rawText: val
+  };
+
   conversationState.skillsToAsk.shift();
-  input.value = "";
-  nextStep();
+  askNextQuestion();
 }
 
-function skipSkill() {
+function skipQuestion() {
   conversationState.skillsToAsk.shift();
-  nextStep();
-}
-
-function finishInterview() {
-  document.getElementById('answerSection').classList.add('hidden');
-  document.getElementById('generateBtn').classList.remove('hidden');
-  const box = document.getElementById('conversationBox');
-  box.innerHTML += `<div class="text-center py-8 font-bold text-[#9CAF88]">✨ Analysis Complete! Click generate below.</div>`;
-}
-
-function getGrade(text) {
-  let scores = { E:0, G:0, S:0, N:0 };
-  for (let grade in dictionary) {
-    dictionary[grade].logic.forEach(w => {
-      if (text.toLowerCase().includes(w)) scores[grade]++;
-    });
-  }
-  return Object.keys(scores).reduce((a, b) => scores[a] >= scores[b] ? a : b);
+  askNextQuestion();
 }
 
 function generateComment() {
-  const name = document.getElementById('studentName').value || "The student";
-  const pronoun = document.getElementById('pronounSelect').value;
-  const isCatholic = document.getElementById('catholicMode').checked;
-  
-  const cp = {
-    he: { PRON: "he", POSS: "his", PRON_CAP: "He", BE: "is", LISTEN: "listens" },
-    she: { PRON: "she", POSS: "her", PRON_CAP: "She", BE: "is", LISTEN: "listens" },
-    they: { PRON: "they", POSS: "their", PRON_CAP: "They", BE: "are", LISTEN: "listen" }
-  }[pronoun];
-
-  let segments = [];
-  for (let skillKey in conversationState.collectedData) {
-    const data = conversationState.collectedData[skillKey];
-    const grade = getGrade(data);
-    const qual = dictionary[grade].output[Math.floor(Math.random() * dictionary[grade].output.length)];
-    
-    let phrase = (grade === 'S' || grade === 'N') ? skillsData[skillKey].growth : skillsData[skillKey].strength;
-    phrase = phrase.replace(/\[POSS\]/g, cp.POSS);
-    segments.push(`${qual} ${phrase}`);
-  }
-
-  let finalOutput = `${name} ${segments.join(". " + cp.PRON_CAP + " ")}. `;
-  
-  if (isCatholic) {
-    let cath = catholicPhrases[Math.floor(Math.random() * catholicPhrases.length)];
-    finalOutput += cath.replace(/\[PRON\]/g, cp.PRON).replace(/\[PRON_CAP\]/g, cp.PRON_CAP).replace(/\[BE\]/g, cp.BE).replace(/\[LISTEN\]/g, cp.LISTEN).replace(/\[POSS\]/g, cp.POSS);
-  }
-
-  // Final Grammar Fix for 'They'
-  if (pronoun === 'they') {
-    finalOutput = finalOutput.replace(/\bdemonstrates\b/g, "demonstrate").replace(/\bshows\b/g, "show").replace(/\bsets\b/g, "set").replace(/\bmonitors\b/g, "monitor").replace(/\bworks\b/g, "work").replace(/\bis encouraged\b/g, "are encouraged").replace(/\bresponds\b/g, "respond").replace(/\bfollows\b/g, "follow").replace(/\buses\b/g, "use").replace(/\bseeks\b/g, "seek");
-  }
-
-  document.getElementById('commentResult').innerText = finalOutput.replace(/\s+/g, ' ').trim();
-  document.getElementById('outputBox').classList.remove('hidden');
-  document.getElementById('generateBtn').classList.add('hidden');
-}
-
-function copyText() {
-  navigator.clipboard.writeText(document.getElementById('commentResult').innerText);
-  document.getElementById('copyBtnText').innerText = "✓ Copied!";
-  setTimeout(() => { document.getElementById('copyBtnText').innerText = "Copy to Clipboard"; }, 3000);
+  // logic follows from v2.9 formatting with v3.0 grammar fixes
 }
 
 function startOver() {
@@ -306,5 +332,11 @@ document.getElementById('answerInput').addEventListener('keypress', function(e) 
 
 window.onload = () => setPronoun('she');
 </script>
+<input type="hidden" id="pronounSelect" value="she">
+<div class="hidden">
+    <button id="btn-he" onclick="setPronoun('he')"></button>
+    <button id="btn-she" onclick="setPronoun('she')"></button>
+    <button id="btn-they" onclick="setPronoun('they')"></button>
+</div>
 </body>
 </html>
